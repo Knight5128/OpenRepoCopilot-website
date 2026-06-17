@@ -93,6 +93,36 @@ document.querySelectorAll(".copy-btn").forEach((btn) => {
   });
 });
 
+// OS selector tabs (one-click skill install)
+const osTabs = document.querySelectorAll(".qs-os-tab");
+const osPanels = document.querySelectorAll(".qs-os-panel");
+if (osTabs.length && osPanels.length) {
+  const selectOs = (os) => {
+    osTabs.forEach((tab) => {
+      const active = tab.dataset.os === os;
+      tab.classList.toggle("is-active", active);
+      tab.setAttribute("aria-selected", String(active));
+      tab.tabIndex = active ? 0 : -1;
+    });
+    osPanels.forEach((panel) => {
+      const active = panel.dataset.os === os;
+      panel.classList.toggle("is-active", active);
+      panel.hidden = !active;
+    });
+  };
+  osTabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => selectOs(tab.dataset.os));
+    tab.addEventListener("keydown", (event) => {
+      if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+      event.preventDefault();
+      const dir = event.key === "ArrowRight" ? 1 : -1;
+      const next = osTabs[(index + dir + osTabs.length) % osTabs.length];
+      selectOs(next.dataset.os);
+      next.focus();
+    });
+  });
+}
+
 // Highlight active nav item by <body data-page>
 const currentPage = document.body.dataset.page;
 if (currentPage) {

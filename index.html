@@ -28,7 +28,6 @@
           <button type="button" data-theme-choice="dark" aria-label="Dark mode">☾</button>
           <button type="button" data-theme-choice="system" aria-label="System">⚙</button>
         </div>
-        <a class="nav-cta" href="https://github.com/Knight5128/OpenRepoCopilot" target="_blank" rel="noreferrer">GitHub</a>
         <button class="nav-toggle" type="button" aria-label="菜单" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -86,38 +85,45 @@
               <span class="qs-install-kicker">SKILL 一键安装</span>
               <h2>把全套 OpenRepoCopilot skill 装进你的 Agent</h2>
             </div>
-            <div class="qs-platforms">
-              <article class="qs-platform">
-                <header class="qs-platform-head">
-                  <span class="qs-os">Windows</span>
-                  <span class="qs-os-note">在 PowerShell 中运行</span>
-                </header>
+            <div class="qs-os-tabs" role="tablist" aria-label="选择操作系统">
+              <button class="qs-os-tab is-active" type="button" role="tab" id="os-tab-windows" aria-selected="true" aria-controls="os-panel-windows" data-os="windows">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M3 5.5 10.5 4.4v7.1H3V5.5zm0 13 7.5 1.1v-7H3v5.9zM11.5 4.2 21 3v8.5h-9.5V4.2zm0 8.3H21V21l-9.5-1.3v-7.2z"/></svg>
+                <span>Windows</span>
+              </button>
+              <button class="qs-os-tab" type="button" role="tab" id="os-tab-macos" aria-selected="false" aria-controls="os-panel-macos" data-os="macos" tabindex="-1">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M16.4 12.9c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.8-3.5.8-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.2 0 2-1.1 2.8-2.2.9-1.3 1.2-2.5 1.3-2.6-.1 0-2.5-1-2.5-3.8zM14.2 5.8c.6-.8 1-1.9.9-3-.9 0-2 .6-2.7 1.4-.6.7-1.1 1.8-.9 2.9 1 .1 2-.5 2.7-1.3z"/></svg>
+                <span>macOS</span>
+              </button>
+              <button class="qs-os-tab" type="button" role="tab" id="os-tab-linux" aria-selected="false" aria-controls="os-panel-linux" data-os="linux" tabindex="-1">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2c-1.7 0-3 1.6-3 3.6 0 1 .1 1.9-.4 2.9-.5.9-1.6 1.7-2.2 3.3-.5 1.5-.2 2.8.1 3.9.2.8.3 1.5 0 2.1-.5 1-.4 1.8 0 2.3.5.5 1.4.6 2.3.3.7-.2 1.2-.1 1.7.1.6.3 1.1.7 2 .7s1.4-.4 2-.7c.5-.2 1-.3 1.7-.1.9.3 1.8.2 2.3-.3.4-.5.5-1.3 0-2.3-.3-.6-.2-1.3 0-2.1.3-1.1.6-2.4.1-3.9-.6-1.6-1.7-2.4-2.2-3.3-.5-1-.4-1.9-.4-2.9C15 3.6 13.7 2 12 2z"/></svg>
+                <span>Linux</span>
+              </button>
+            </div>
+
+            <div class="qs-os-panels">
+              <div class="qs-os-panel is-active" id="os-panel-windows" role="tabpanel" aria-labelledby="os-tab-windows" data-os="windows">
+                <span class="qs-os-note">在 PowerShell 中运行</span>
                 <div class="cmd-line">
                   <code>iwr -useb https://raw.githubusercontent.com/Knight5128/OpenRepoCopilot/main/install.ps1 | iex</code>
                   <button class="copy-btn" type="button" data-label="Copy" data-copy="iwr -useb https://raw.githubusercontent.com/Knight5128/OpenRepoCopilot/main/install.ps1 | iex" aria-label="复制命令">Copy</button>
                 </div>
-                <p class="cmd-caption">直接指定 Codex：</p>
-                <div class="cmd-line">
-                  <code>&amp; ([scriptblock]::Create((iwr -useb https://raw.githubusercontent.com/Knight5128/OpenRepoCopilot/main/install.ps1))) codex</code>
-                  <button class="copy-btn" type="button" data-label="Copy" data-copy="&amp; ([scriptblock]::Create((iwr -useb https://raw.githubusercontent.com/Knight5128/OpenRepoCopilot/main/install.ps1))) codex" aria-label="复制命令">Copy</button>
-                </div>
-              </article>
+              </div>
 
-              <article class="qs-platform">
-                <header class="qs-platform-head">
-                  <span class="qs-os">macOS / Linux</span>
-                  <span class="qs-os-note">在终端中运行</span>
-                </header>
+              <div class="qs-os-panel" id="os-panel-macos" role="tabpanel" aria-labelledby="os-tab-macos" data-os="macos" hidden>
+                <span class="qs-os-note">在终端中运行</span>
                 <div class="cmd-line">
                   <code>curl -fsSL https://raw.githubusercontent.com/Knight5128/OpenRepoCopilot/main/install.sh | bash</code>
                   <button class="copy-btn" type="button" data-label="Copy" data-copy="curl -fsSL https://raw.githubusercontent.com/Knight5128/OpenRepoCopilot/main/install.sh | bash" aria-label="复制命令">Copy</button>
                 </div>
-                <p class="cmd-caption">直接指定 Codex：</p>
+              </div>
+
+              <div class="qs-os-panel" id="os-panel-linux" role="tabpanel" aria-labelledby="os-tab-linux" data-os="linux" hidden>
+                <span class="qs-os-note">在终端中运行</span>
                 <div class="cmd-line">
-                  <code>curl -fsSL https://raw.githubusercontent.com/Knight5128/OpenRepoCopilot/main/install.sh | bash -s codex</code>
-                  <button class="copy-btn" type="button" data-label="Copy" data-copy="curl -fsSL https://raw.githubusercontent.com/Knight5128/OpenRepoCopilot/main/install.sh | bash -s codex" aria-label="复制命令">Copy</button>
+                  <code>curl -fsSL https://raw.githubusercontent.com/Knight5128/OpenRepoCopilot/main/install.sh | bash</code>
+                  <button class="copy-btn" type="button" data-label="Copy" data-copy="curl -fsSL https://raw.githubusercontent.com/Knight5128/OpenRepoCopilot/main/install.sh | bash" aria-label="复制命令">Copy</button>
                 </div>
-              </article>
+              </div>
             </div>
           </div>
         </div>
