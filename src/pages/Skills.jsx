@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import SkillGraph from "../components/SkillGraph.jsx";
+import PageHeroBackdrop from "../components/PageHeroBackdrop.jsx";
 import { GROUPS, SKILLS, skillById, groupById } from "../data/skills.js";
 import { formatText } from "../utils/formatText.jsx";
 import { useReveal } from "../hooks/useReveal.js";
@@ -60,6 +61,7 @@ export default function Skills() {
   return (
     <>
       <section className="page-hero">
+        <PageHeroBackdrop />
         <div className="page-hero-inner reveal">
           <span className="page-kicker">SKILL BREAKDOWN · SKILL解析</span>
           <h1>10 个 skill，连成一张能点的图</h1>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import PageHeroBackdrop from "../components/PageHeroBackdrop.jsx";
 import { useReveal } from "../hooks/useReveal.js";
 
 // Two distinct end-to-end paths from install → insight.
@@ -148,6 +149,7 @@ export default function Usage() {
   return (
     <>
       <section className="page-hero">
+        <PageHeroBackdrop />
         <div className="page-hero-inner reveal">
           <span className="page-kicker">USAGE FLOW · 使用流程</span>
           <h1>从安装到洞察的端到端旅程</h1>

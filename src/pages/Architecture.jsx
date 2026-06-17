@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import PageHeroBackdrop from "../components/PageHeroBackdrop.jsx";
 import { useReveal } from "../hooks/useReveal.js";
 
 const STEPS = [
@@ -248,6 +249,7 @@ export default function Architecture() {
   return (
     <>
       <section className="page-hero">
+        <PageHeroBackdrop />
         <div className="page-hero-inner reveal">
           <span className="page-kicker">SYSTEM ARCHITECTURE · 系统架构</span>
           <h1>把项目拆成节点，把节点连成图</h1>

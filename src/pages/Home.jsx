@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import HeroGraph from "../components/HeroGraph.jsx";
 import CopyButton from "../components/CopyButton.jsx";
+import { HERO_KNOWLEDGE_GRAPH_URL, LOGO_URL, WINDOWS_INSTALLER_URL } from "../utils/assets.js";
 import { useReveal } from "../hooks/useReveal.js";
 
 const WinIcon = () => (
@@ -73,6 +74,13 @@ export default function Home() {
   return (
     <>
       <section className="quickstart" id="top">
+        <img
+          className="quickstart-bg"
+          src={HERO_KNOWLEDGE_GRAPH_URL}
+          alt=""
+          aria-hidden="true"
+          decoding="async"
+        />
         <div className="quickstart-graph">
           <HeroGraph />
         </div>
@@ -81,7 +89,7 @@ export default function Home() {
         <div className="quickstart-inner reveal reveal-hero">
           <img
             className="quickstart-logo"
-            src="./assets/openrepo-copilot-logo.png"
+            src={LOGO_URL}
             alt="OpenRepoCopilot logo"
           />
           <h1 className="quickstart-name">OpenRepo Copilot</h1>
@@ -93,7 +101,7 @@ export default function Home() {
           <div className="download-row" aria-label="客户端下载">
             <a
               className="download-btn primary"
-              href="downloads/OpenRepoCopilot-Setup-20260617.exe"
+              href={WINDOWS_INSTALLER_URL}
               download
             >
               <WinIcon />

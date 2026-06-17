@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import ThemeSwitcher from "./ThemeSwitcher.jsx";
+import { LOGO_URL } from "../utils/assets.js";
 
 const NAV = [
   { to: "/", label: "快速开始", end: true },
@@ -23,7 +24,7 @@ export default function Header() {
   return (
     <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
       <Link className="brand" to="/">
-        <img className="brand-logo" src="./assets/openrepo-copilot-logo.png" alt="" />
+        <img className="brand-logo" src={LOGO_URL} alt="" />
         <span>OpenRepo Copilot</span>
       </Link>
       <nav className={`nav-links${open ? " is-open" : ""}`} aria-label="主导航">
