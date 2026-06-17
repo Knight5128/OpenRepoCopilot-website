@@ -1,13 +1,6 @@
-const normalizeBase = (base) => (base.endsWith("/") ? base : `${base}/`);
-
 export function publicUrl(path) {
   const cleanPath = path.replace(/^\/+/, "");
-
-  if (import.meta.env.PROD) {
-    return new URL(`../${cleanPath}`, import.meta.url).href;
-  }
-
-  return `${normalizeBase(import.meta.env.BASE_URL)}${cleanPath}`;
+  return `/${cleanPath}`;
 }
 
 export const LOGO_URL = publicUrl("assets/openrepo-copilot-logo.png");
