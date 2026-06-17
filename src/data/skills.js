@@ -1,0 +1,238 @@
+// Single source of truth for the 11 skills — consumed by both the interactive
+// skill graph and the detail panel. Inline `code` (backticks) and **bold**
+// markers are rendered by the formatText helper.
+
+export const GROUPS = [
+  { id: "infra", label: "基础设施", color: "var(--teal)" },
+  { id: "core", label: "核心分析", color: "var(--coral)" },
+  { id: "explore", label: "查询 · 探索", color: "var(--cyan)" },
+  { id: "knowledge", label: "领域 · 知识库", color: "var(--lime)" },
+];
+
+export const SKILLS = [
+  {
+    id: "openrepo",
+    cmd: "/openrepo",
+    group: "infra",
+    feature: false,
+    purpose: "启动 OpenRepoCopilot 本地工作台，管理公共 GitHub 仓库与文档知识库项目。",
+    params: "无",
+    def: "skills/openrepo/SKILL.md",
+    flow: [
+      "按顺序解析插件根目录：`${CLAUDE_PLUGIN_ROOT}` → `~/.understand-anything-plugin` → 常见安装路径。",
+      "如需则构建 CLI：`pnpm install --frozen-lockfile && pnpm --filter @openrepo-copilot/server build`。",
+      "启动工作台：`node packages/openrepo/dist/cli.js ui`。",
+      "报告打印出的访问地址（通常 `http://127.0.0.1:5173/`）。",
+    ],
+    funcs: [
+      "仅本地、绑定 `127.0.0.1`，不依赖云端。",
+      "`OPENREPO_HOME` 控制项目存储（默认 `~/.openrepo-copilot`）。",
+      "统一管理多个项目、查看分析状态、进入仪表盘。",
+    ],
+  },
+  {
+    id: "openrepo-analyze",
+    cmd: "/openrepo-analyze",
+    group: "infra",
+    feature: false,
+    purpose: "领取并执行工作台队列中的一个分析任务，跑通仓库 / 文档分析流程。",
+    params: "`<project-id>`（必填，从工作台复制）",
+    def: "skills/openrepo-analyze/SKILL.md",
+    flow: [
+      "接收 `project-id`；缺失则向用户索取。",
+      "确保 CLI 已构建：`pnpm --filter @openrepo-copilot/server build`。",
+      "领取下一个队列任务：`cli.js job-start <project-id>`，检查返回 JSON。",
+      "**github_repo**：进入 `sourcePath` 跑仓库图谱流程，产物 `.understand-anything` 拷到 `graphPath`。",
+      "**document_kb**：跑文档知识库流程，确保 `knowledge-graph.json` 落到 `graphPath`。",
+      "完成：`cli.js job-complete <job-id>`；失败：`cli.js job-fail <job-id> \"<error>\"`。",
+    ],
+    funcs: [
+      "同时支持 GitHub 仓库与文档知识库两类项目。",
+      "依赖当前 Agent 环境进行 LLM 分析。",
+      "**不要**并发分析多个 OpenRepo 项目。",
+    ],
+  },
+  {
+    id: "understand",
+    cmd: "/understand",
+    group: "core",
+    feature: true,
+    purpose: "分析代码库，产出可交互的知识图谱，用于理解架构、组件与关系。这是核心命令。",
+    params: "`[path] [--full|--auto-update|--no-auto-update|--review|--language <lang>]`",
+    def: "skills/understand/SKILL.md",
+    flowTitle: "核心规范 / 工作流（Phase 0–7）",
+    flow: [
+      "**Phase 0 预检**：解析 `PROJECT_ROOT`，识别并重定向 git worktree 以保护 `.understand-anything/`，构建插件，采集 README / 目录树。",
+      "**Phase 0.5 忽略配置**：生成 / 确认 `.understandignore`，等待用户确认。",
+      "**Phase 1 扫描**：派 `project-scanner` 子 Agent 发现文件、语言、框架、复杂度。",
+      "**Phase 1.5 分批**：`compute-batches.mjs` 组织语义批次。",
+      "**Phase 2 分析**：并发至多 5 个 `file-analyzer` 子 Agent，再 `merge-batch-graphs.py` 合并。",
+      "**Phase 3–5**：`assemble-reviewer` 装配评审 → `architecture-analyzer` 分层 → `tour-builder` 生成导览。",
+      "**Phase 6 评审**：内联确定性校验，或（`--review`）完整 LLM 评审。",
+      "**Phase 7 保存**：写 `knowledge-graph.json` 与 `meta.json`，启动仪表盘。",
+    ],
+    funcs: [
+      "产出含 **21 种节点 / 35 种边**的结构化 `knowledge-graph.json`。",
+      "支持只对变更文件的增量更新。",
+      "`--language` 用 ISO 639-1 或友好名（chinese→zh）生成本地化文本。",
+      "自动处理 worktree 重定向，每阶段报告进度。",
+    ],
+  },
+  {
+    id: "understand-chat",
+    cmd: "/understand-chat",
+    group: "explore",
+    feature: false,
+    purpose: "基于知识图谱就代码库提问，无需加载整张图即可高效问答。",
+    params: "`[query]`",
+    def: "skills/understand-chat/SKILL.md",
+    flow: [
+      "检查 `knowledge-graph.json` 是否存在，缺失则提示先跑 `/understand`。",
+      "只读项目元数据；用 Grep 在节点 `name` / `summary` 中匹配关键词。",
+      "沿匹配节点的边找出 1-hop 子图（上游调用者 + 下游依赖）。",
+      "仅依据相关子图与所属架构层作答。",
+    ],
+    funcs: [
+      "先 Grep 语义检索、后读取，避免整文件加载。",
+      "给出具体的文件、函数与关系引用。",
+      "不匹配时建议相关检索词。",
+    ],
+  },
+  {
+    id: "understand-explain",
+    cmd: "/understand-explain",
+    group: "explore",
+    feature: false,
+    purpose: "对某个文件 / 函数 / 模块做深入讲解，结合图谱邻域与真实源码。",
+    params: "`[file-path]`（支持 `src/auth/login.ts:verifyToken` 记法）",
+    def: "skills/understand-explain/SKILL.md",
+    flow: [
+      "用 Grep 定位目标节点（按 `filePath` 或函数名）。",
+      "找出所有相连边（出向调用 / 入向调用、导入）构建邻域。",
+      "识别所属架构层，再读取真实源码做深潜分析。",
+      "从「架构角色 → 内部结构 → 外部连接 → 数据流 → 模式与复杂度」逐层解释。",
+    ],
+    funcs: [
+      "提供 1-hop 邻域上下文，结合源码深读。",
+      "假设读者可能不熟该语言，突出习语与复杂点。",
+    ],
+  },
+  {
+    id: "understand-diff",
+    cmd: "/understand-diff",
+    group: "explore",
+    feature: false,
+    purpose: "分析 git diff / PR，理解改了什么、影响哪些组件、风险有多大。",
+    params: "`无`（读取当前 diff）",
+    def: "skills/understand-diff/SKILL.md",
+    flow: [
+      "取变更文件：`git diff --name-only` 或 `git diff main...HEAD --name-only`。",
+      "用 Grep 在 `filePath` 中定位变更节点，再找 1-hop 受影响组件与架构层。",
+      "结构化输出：变更组件 / 受影响组件 / 受影响层 / 风险评估。",
+      "写出 `.understand-anything/diff-overlay.json` 供仪表盘可视化。",
+    ],
+    funcs: [
+      "识别变更「爆炸半径」与跨层关注点。",
+      "基于节点复杂度给出风险评估。",
+      "产出仪表盘可直接消费的 overlay 文件。",
+    ],
+  },
+  {
+    id: "understand-onboard",
+    cmd: "/understand-onboard",
+    group: "explore",
+    feature: false,
+    purpose: "为加入项目的新成员生成一份上手引导文档。",
+    params: "无",
+    def: "skills/understand-onboard/SKILL.md",
+    flow: [
+      "读取项目元数据、`layers`（架构）与 `tour`（学习路径）。",
+      "只取文件级结构节点（跳过函数/类），识别复杂度热点。",
+      "生成 Markdown：项目概览 / 架构层 / 关键概念 / 引导导览 / 文件地图 / 复杂度热点。",
+      "可保存为 `docs/ONBOARDING.md` 并建议提交仓库。",
+    ],
+    funcs: [
+      "复用现有 tour / layers 组织学习流。",
+      "面向团队的高层、文件中心视角文档。",
+    ],
+  },
+  {
+    id: "understand-dashboard",
+    cmd: "/understand-dashboard",
+    group: "explore",
+    feature: false,
+    purpose: "启动交互式 Web 仪表盘，可视化代码库的知识图谱。",
+    params: "`[project-path]`（可选，默认当前目录）",
+    def: "skills/understand-dashboard/SKILL.md",
+    flow: [
+      "确定项目目录并检查 `knowledge-graph.json` 存在。",
+      "解析 dashboard 代码路径，`pnpm install --frozen-lockfile` 并构建 core。",
+      "后台启动 Vite：`GRAPH_DIR=<project-dir> npx vite --host 127.0.0.1`。",
+      "捕获并报告仪表盘 URL。",
+    ],
+    funcs: [
+      "可 `--open` 自动用默认浏览器打开。",
+      "绑定 `127.0.0.1` 本地访问；端口占用自动顺延。",
+      "后台运行，不阻塞继续工作。",
+    ],
+  },
+  {
+    id: "understand-domain",
+    cmd: "/understand-domain",
+    group: "knowledge",
+    feature: false,
+    purpose: "从代码库提炼业务领域知识，生成可交互的领域流程图。",
+    params: "`[--full]`",
+    def: "skills/understand-domain/SKILL.md",
+    flowTitle: "核心规范 / 工作流（Phase 0–6）",
+    flow: [
+      "**Phase 0–1**：解析 ROOT、处理 worktree；检测已有 `knowledge-graph.json`。",
+      "**Path 1（轻量扫描）**：`extract-domain-context.py` 产出 `domain-context.json`。",
+      "**Path 2（复用图谱）**：直接从已有图谱（节点/边/层/导览）抽取上下文。",
+      "**Phase 4**：派 `domain-analyzer` 子 Agent，写 `domain-analysis.json`。",
+      "**Phase 5–6**：校验归一化后保存 `domain-graph.json`，自动启动仪表盘。",
+    ],
+    funcs: [
+      "检测业务流程、过程与领域概念。",
+      "可独立轻量扫描，也可复用已有知识图谱；`--full` 强制重扫。",
+      "支持仪表盘中的横向流程图可视化。",
+    ],
+  },
+  {
+    id: "understand-knowledge",
+    cmd: "/understand-knowledge",
+    group: "knowledge",
+    feature: false,
+    purpose: "分析 Karpathy 范式的 LLM wiki 知识库，做实体抽取、隐式关系与主题聚类，生成知识图谱。",
+    params: "`[wiki-directory]`",
+    def: "skills/understand-knowledge/SKILL.md",
+    flowTitle: "核心规范 / 工作流（Phase 1–6）",
+    flow: [
+      "**Phase 1–2 检测/扫描**：`parse-knowledge-base.py` 识别原始源、`[[wikilink]]`、schema、`index.md` / `log.md`，产出文章/源/主题节点与 `related`/`categorized_under` 边。",
+      "**Phase 3 分析**：按类别每批 10–15 篇，最多 3 个 `article-analyzer` 并发；部分失败可继续。",
+      "**Phase 4 合并**：`merge-knowledge-graph.py` 合并去重（大小写不敏感），由 `index.md` 构建层与导览。",
+      "**Phase 5–6**：校验删悬挂边 → 写 `knowledge-graph.json` + `meta.json` → 启动仪表盘。",
+    ],
+    funcs: [
+      "确定性扫描 + LLM 推断隐式知识关系。",
+      "大小写不敏感实体去重；仪表盘力导向布局（`kind: \"knowledge\"`）。",
+      "类别与分类法取自 `index.md` 的章节标题。",
+    ],
+  },
+];
+
+// Edges between skills — reflects how commands chain in real workflows.
+export const SKILL_EDGES = [
+  ["openrepo", "openrepo-analyze"],
+  ["openrepo-analyze", "understand"],
+  ["understand", "understand-chat"],
+  ["understand", "understand-explain"],
+  ["understand", "understand-diff"],
+  ["understand", "understand-onboard"],
+  ["understand", "understand-dashboard"],
+  ["understand", "understand-domain"],
+  ["understand", "understand-knowledge"],
+];
+
+export const groupById = Object.fromEntries(GROUPS.map((g) => [g.id, g]));
+export const skillById = Object.fromEntries(SKILLS.map((s) => [s.id, s]));
