@@ -1,6 +1,9 @@
+// ── Shared site script: theme, scroll progress, reveal, copy, nav ──
 const header = document.querySelector(".site-header");
 const themeButtons = document.querySelectorAll("[data-theme-choice]");
-const revealItems = document.querySelectorAll(".reveal, .reveal-step, .reveal-left, .reveal-right, .stage-screen");
+const revealItems = document.querySelectorAll(
+  ".reveal, .reveal-step, .reveal-left, .reveal-right, .stage-screen",
+);
 const systemScheme = window.matchMedia("(prefers-color-scheme: dark)");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const themeFromUrl = new URLSearchParams(window.location.search).get("theme");
@@ -11,20 +14,23 @@ let themeChoice = ["light", "dark", "system"].includes(themeFromUrl)
   : storedTheme || "dark";
 
 const updateHeader = () => {
+  if (!header) return;
   header.classList.toggle("is-scrolled", window.scrollY > 24);
 };
 
 const updateScrollProgress = () => {
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
   const progress = maxScroll <= 0 ? 0 : window.scrollY / maxScroll;
-  document.documentElement.style.setProperty("--scroll-progress", String(Math.min(1, Math.max(0, progress))));
+  document.documentElement.style.setProperty(
+    "--scroll-progress",
+    String(Math.min(1, Math.max(0, progress))),
+  );
 };
 
 const resolvedTheme = () => {
   if (themeChoice === "system") {
     return systemScheme.matches ? "dark" : "light";
   }
-
   return themeChoice;
 };
 
@@ -34,7 +40,6 @@ const applyTheme = () => {
   if (revealMode) {
     document.documentElement.dataset.reveal = revealMode;
   }
-
   themeButtons.forEach((button) => {
     const isSelected = button.dataset.themeChoice === themeChoice;
     button.setAttribute("aria-pressed", String(isSelected));
@@ -55,6 +60,7 @@ systemScheme.addEventListener("change", () => {
   }
 });
 
+// Scroll-reveal animation
 if (reduceMotion.matches || revealMode === "all") {
   revealItems.forEach((item) => item.classList.add("is-visible"));
 } else {
@@ -68,44 +74,49 @@ if (reduceMotion.matches || revealMode === "all") {
     },
     { rootMargin: "0px 0px -12% 0px", threshold: 0.18 },
   );
-
   revealItems.forEach((item) => revealObserver.observe(item));
 }
 
-// Copy-to-clipboard for install commands
+// Copy-to-clipboard for install / skill commands
 document.querySelectorAll(".copy-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
     const text = btn.dataset.copy;
     navigator.clipboard.writeText(text).then(() => {
+      const original = btn.dataset.label || "Copy";
       btn.textContent = "Copied!";
       btn.classList.add("copied");
       setTimeout(() => {
-        btn.textContent = "Copy";
+        btn.textContent = original;
         btn.classList.remove("copied");
       }, 1800);
     });
   });
 });
 
-// Architecture carousel
-const archTrack = document.querySelector(".arch-track");
-const archSlides = document.querySelectorAll(".arch-slide");
-const archDots = document.querySelectorAll(".arch-dot");
-const archPrev = document.querySelector(".arch-prev");
-const archNext = document.querySelector(".arch-next");
-let archIndex = 0;
+// Highlight active nav item by <body data-page>
+const currentPage = document.body.dataset.page;
+if (currentPage) {
+  document.querySelectorAll(".nav-links a[data-nav]").forEach((link) => {
+    if (link.dataset.nav === currentPage) {
+      link.classList.add("is-active");
+      link.setAttribute("aria-current", "page");
+    }
+  });
+}
 
-const goToSlide = (i) => {
-  archIndex = Math.max(0, Math.min(i, archSlides.length - 1));
-  archTrack.style.transform = `translateX(-${archIndex * 100}%)`;
-  archDots.forEach((d, idx) => d.classList.toggle("active", idx === archIndex));
-};
-
-if (archPrev && archNext) {
-  archPrev.addEventListener("click", () => goToSlide(archIndex - 1));
-  archNext.addEventListener("click", () => goToSlide(archIndex + 1));
-  archDots.forEach((d) => {
-    d.addEventListener("click", () => goToSlide(Number(d.dataset.slide)));
+// Mobile nav toggle
+const navToggle = document.querySelector(".nav-toggle");
+const primaryNav = document.querySelector(".nav-links");
+if (navToggle && primaryNav) {
+  navToggle.addEventListener("click", () => {
+    const open = primaryNav.classList.toggle("is-open");
+    navToggle.setAttribute("aria-expanded", String(open));
+  });
+  primaryNav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      primaryNav.classList.remove("is-open");
+      navToggle.setAttribute("aria-expanded", "false");
+    });
   });
 }
 

@@ -6,18 +6,21 @@
     <title>OpenRepoCopilot | 本地优先的 AI 仓库知识工作台</title>
     <meta
       name="description"
-      content="OpenRepoCopilot 将 GitHub 仓库、文档集合与项目图谱转化为可探索、可搜索、可复用的交互式知识图谱。"
+      content="OpenRepoCopilot 将 GitHub 仓库、文档集合与项目图谱转化为可探索、可搜索、可复用的交互式知识图谱。下载客户端或一键安装全套 skill。"
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body>
+  <body data-page="home">
     <header class="site-header">
-      <div class="brand"></div>
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="./assets/openrepo-copilot-logo.png" alt="" />
+        <span>OpenRepoCopilot</span>
+      </a>
       <nav class="nav-links" aria-label="主导航">
-        <a href="#workflow">工作流程</a>
-        <a href="#architecture">系统架构</a>
-        <a href="#demo">演示</a>
-        <a href="#install">开始使用</a>
+        <a href="index.html" data-nav="home">快速开始</a>
+        <a href="usage.html" data-nav="usage">使用流程</a>
+        <a href="architecture.html" data-nav="architecture">系统架构</a>
+        <a href="skills.html" data-nav="skills">SKILL解析</a>
       </nav>
       <div class="header-actions">
         <div class="theme-switcher" aria-label="配色模式">
@@ -25,544 +28,140 @@
           <button type="button" data-theme-choice="dark" aria-label="Dark mode">☾</button>
           <button type="button" data-theme-choice="system" aria-label="System">⚙</button>
         </div>
-        <a class="nav-cta" href="#demo">在线演示</a>
+        <a class="nav-cta" href="https://github.com/Knight5128/OpenRepoCopilot" target="_blank" rel="noreferrer">GitHub</a>
+        <button class="nav-toggle" type="button" aria-label="菜单" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </header>
     <div class="scroll-progress" aria-hidden="true"><span></span></div>
 
     <main id="top">
-      <section class="hero">
-        <img
-          class="hero-bg"
-          src="./assets/hero-knowledge-graph.png"
-          alt="OpenRepoCopilot 知识图谱与代码仓库分析视觉图"
-        />
-        <div class="hero-overlay"></div>
-        <div class="hero-content reveal reveal-hero">
-          <h1>Open Repo Copilot</h1>
-          <p class="hero-copy">
-            将 GitHub 仓库与文档集合转化为交互式知识图谱，<strong>可探索 · 可搜索 · 可复用</strong>
+      <section class="quickstart">
+        <img class="quickstart-bg" src="./assets/hero-knowledge-graph.png" alt="" />
+        <div class="quickstart-overlay"></div>
+
+        <div class="quickstart-inner reveal reveal-hero">
+          <img class="quickstart-logo" src="./assets/openrepo-copilot-logo.png" alt="OpenRepoCopilot logo" />
+          <h1 class="quickstart-name">OpenRepoCopilot</h1>
+          <p class="quickstart-tagline">
+            本地优先的 AI 仓库知识工作台 —— 将仓库与文档转化为<strong>可探索 · 可搜索 · 可复用</strong>的交互式知识图谱
           </p>
-          <div class="hero-actions">
-            <a class="button primary" href="#workflow">工作流程</a>
-            <a class="button secondary" href="#demo">在线演示</a>
-            <a class="button ghost" href="https://github.com/Knight5128/OpenRepoCopilot" target="_blank" rel="noreferrer">
-              <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-              GitHub
+
+          <!-- App download buttons -->
+          <div class="download-row" aria-label="客户端下载">
+            <a
+              class="download-btn primary"
+              href="downloads/OpenRepoCopilot-Setup-20260617.exe"
+              download
+            >
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M3 5.5 10.5 4.4v7.1H3V5.5zm0 13 7.5 1.1v-7H3v5.9zM11.5 4.2 21 3v8.5h-9.5V4.2zm0 8.3H21V21l-9.5-1.3v-7.2z"/></svg>
+              <span class="download-label">
+                <strong>下载 Windows 版</strong>
+                <small>.exe 安装包 · 64-bit</small>
+              </span>
             </a>
+            <button class="download-btn disabled" type="button" disabled>
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M16.4 12.9c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.8-3.5.8-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.2 0 2-1.1 2.8-2.2.9-1.3 1.2-2.5 1.3-2.6-.1 0-2.5-1-2.5-3.8zM14.2 5.8c.6-.8 1-1.9.9-3-.9 0-2 .6-2.7 1.4-.6.7-1.1 1.8-.9 2.9 1 .1 2-.5 2.7-1.3z"/></svg>
+              <span class="download-label">
+                <strong>macOS 版</strong>
+                <small>即将推出</small>
+              </span>
+              <span class="soon-badge">即将推出</span>
+            </button>
+            <button class="download-btn disabled" type="button" disabled>
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M12 2c-1.7 0-3 1.6-3 3.6 0 1 .1 1.9-.4 2.9-.5.9-1.6 1.7-2.2 3.3-.5 1.5-.2 2.8.1 3.9.2.8.3 1.5 0 2.1-.5 1-.4 1.8 0 2.3.5.5 1.4.6 2.3.3.7-.2 1.2-.1 1.7.1.6.3 1.1.7 2 .7s1.4-.4 2-.7c.5-.2 1-.3 1.7-.1.9.3 1.8.2 2.3-.3.4-.5.5-1.3 0-2.3-.3-.6-.2-1.3 0-2.1.3-1.1.6-2.4.1-3.9-.6-1.6-1.7-2.4-2.2-3.3-.5-1-.4-1.9-.4-2.9C15 3.6 13.7 2 12 2z"/></svg>
+              <span class="download-label">
+                <strong>Linux 版</strong>
+                <small>即将推出</small>
+              </span>
+              <span class="soon-badge">即将推出</span>
+            </button>
           </div>
-          <div class="hero-metrics" aria-label="核心能力">
-            <div>
-              <strong>Knowledge Graph</strong>
-              <span>交互式知识图谱</span>
-            </div>
-            <div>
-              <strong>Multi-Agent</strong>
-              <span>多 Agent 分析流水线</span>
-            </div>
-            <div>
-              <strong>Local-First</strong>
-              <span>本地工作台</span>
-            </div>
-          </div>
-        </div>
-      </section>
+          <p class="download-note">macOS / Linux 客户端正在打包中，当前可使用下方一键脚本安装全套 skill。</p>
 
-      <section class="section intro-section">
-        <div class="section-heading compact reveal">
-          <h2>从源码散落到知识图谱</h2>
-        </div>
-        <div class="compare-board" aria-label="传统仓库浏览与 OpenRepoCopilot 对比">
-          <article class="compare-panel muted-panel reveal-left">
-            <span class="compare-label">传统仓库浏览</span>
-            <h3>文件堆叠 缺少全局视图</h3>
-            <div class="hairball" aria-hidden="true">
-              <span></span><span></span><span></span><span></span><span></span><span></span>
+          <!-- One-click skill install -->
+          <div class="qs-install reveal">
+            <div class="qs-install-head">
+              <span class="qs-install-kicker">SKILL 一键安装</span>
+              <h2>把全套 OpenRepoCopilot skill 装进你的 Agent</h2>
             </div>
-            <p>代码、文档、Issue 散落在目录与页面中，缺少结构化关联与全局理解路径。</p>
-          </article>
-          <article class="compare-panel meaning-panel reveal-right">
-            <span class="compare-label">OpenRepoCopilot</span>
-            <h3>交互式知识图谱驱动理解</h3>
-            <div class="meaning-flow" aria-hidden="true">
-              <span>仓库</span>
-              <span>解析</span>
-              <span>图谱</span>
-              <span>搜索</span>
-              <span>洞察</span>
-            </div>
-            <p>多 Agent 流水线自动解析仓库，生成可搜索、可过滤、可导览的交互式知识图谱。</p>
-          </article>
-        </div>
-      </section>
+            <div class="qs-platforms">
+              <article class="qs-platform">
+                <header class="qs-platform-head">
+                  <span class="qs-os">Windows</span>
+                  <span class="qs-os-note">在 PowerShell 中运行</span>
+                </header>
+                <div class="cmd-line">
+                  <code>iwr -useb https://raw.githubusercontent.com/Knight5128/OpenRepoCopilot/main/install.ps1 | iex</code>
+                  <button class="copy-btn" type="button" data-label="Copy" data-copy="iwr -useb https://raw.githubusercontent.com/Knight5128/OpenRepoCopilot/main/install.ps1 | iex" aria-label="复制命令">Copy</button>
+                </div>
+                <p class="cmd-caption">直接指定 Codex：</p>
+                <div class="cmd-line">
+                  <code>&amp; ([scriptblock]::Create((iwr -useb https://raw.githubusercontent.com/Knight5128/OpenRepoCopilot/main/install.ps1))) codex</code>
+                  <button class="copy-btn" type="button" data-label="Copy" data-copy="&amp; ([scriptblock]::Create((iwr -useb https://raw.githubusercontent.com/Knight5128/OpenRepoCopilot/main/install.ps1))) codex" aria-label="复制命令">Copy</button>
+                </div>
+              </article>
 
-      <section class="section product-section" id="workflow">
-        <div class="section-heading compact reveal">
-          <h2>端到端工作流</h2>
-        </div>
-        <div class="product-shell">
-          <aside class="tool-panel reveal-left" aria-label="输入面板示意">
-            <div class="panel-row">
-              <span>数据源</span>
-              <strong>GitHub 仓库 / 文档集合</strong>
-            </div>
-            <div class="panel-row">
-              <span>格式</span>
-              <strong>.md / .txt / .pdf / .docx</strong>
-            </div>
-            <div class="panel-row">
-              <span>存储</span>
-              <strong>~/.openrepo-copilot</strong>
-            </div>
-            <button class="mock-button" type="button">创建项目</button>
-          </aside>
-          <div class="workspace reveal-right">
-            <div class="workspace-topbar">
-              <span></span>
-              <span></span>
-              <span></span>
-              <p>OpenRepoCopilot Workbench</p>
-            </div>
-            <div class="workflow-list">
-              <div class="workflow-item reveal-step">
-                <span class="node"></span>
-                <div>
-                  <h3>创建项目</h3>
-                  <p>从 GitHub 仓库或本地文档创建 OpenRepoCopilot 项目。</p>
+              <article class="qs-platform">
+                <header class="qs-platform-head">
+                  <span class="qs-os">macOS / Linux</span>
+                  <span class="qs-os-note">在终端中运行</span>
+                </header>
+                <div class="cmd-line">
+                  <code>curl -fsSL https://raw.githubusercontent.com/Knight5128/OpenRepoCopilot/main/install.sh | bash</code>
+                  <button class="copy-btn" type="button" data-label="Copy" data-copy="curl -fsSL https://raw.githubusercontent.com/Knight5128/OpenRepoCopilot/main/install.sh | bash" aria-label="复制命令">Copy</button>
                 </div>
-              </div>
-              <div class="workflow-item reveal-step">
-                <span class="node"></span>
-                <div>
-                  <h3>队列分析</h3>
-                  <p>在工作台中提交分析任务，AI Agent 自动执行代码与文档分析流水线。</p>
+                <p class="cmd-caption">直接指定 Codex：</p>
+                <div class="cmd-line">
+                  <code>curl -fsSL https://raw.githubusercontent.com/Knight5128/OpenRepoCopilot/main/install.sh | bash -s codex</code>
+                  <button class="copy-btn" type="button" data-label="Copy" data-copy="curl -fsSL https://raw.githubusercontent.com/Knight5128/OpenRepoCopilot/main/install.sh | bash -s codex" aria-label="复制命令">Copy</button>
                 </div>
-              </div>
-              <div class="workflow-item reveal-step">
-                <span class="node"></span>
-                <div>
-                  <h3>生成图谱</h3>
-                  <p>输出结构化 knowledge-graph.json，包含模块、函数、依赖与文档关联。</p>
-                </div>
-              </div>
-              <div class="workflow-item reveal-step">
-                <span class="node"></span>
-                <div>
-                  <h3>交互探索</h3>
-                  <p>在 Dashboard 中搜索、过滤、钻取节点详情，查看 Guided Tours 与 Domain Views。</p>
-                </div>
-              </div>
+              </article>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section architecture-section" id="architecture">
+      <!-- Navigation cards to subpages -->
+      <section class="section portal-section">
         <div class="section-heading compact reveal">
-          <h2>系统架构</h2>
+          <h2>了解 OpenRepoCopilot</h2>
         </div>
-        <div class="arch-carousel reveal" aria-label="技术栈横向翻页">
-          <div class="arch-track">
-
-            <!-- Slide 1: Multi-Agent Pipeline -->
-            <article class="arch-slide" data-slide="0">
-              <div class="slide-header">
-                <span class="arch-slide-num">01 / 05</span>
-                <h3>Multi-Agent 分析流水线</h3>
-              </div>
-              <div class="slide-body">
-                <div class="slide-text">
-                  <p class="arch-slide-desc">基于多 Agent 代码分析管道，自动拆解仓库结构、提取实体关系。分析任务通过队列调度、逐步执行，最终输出完整知识图谱。</p>
-                  <div class="arch-tags"><span>多 Agent</span><span>队列调度</span><span>自动分析</span></div>
-                </div>
-                <div class="slide-visual">
-                  <svg viewBox="0 0 380 180" fill="none" class="slide-diagram">
-                    <!-- Pipeline boxes -->
-                    <rect x="10" y="20" width="80" height="40" rx="8" stroke="var(--teal)" stroke-width="1.5" fill="rgba(53,208,186,0.08)"/>
-                    <text x="50" y="44" text-anchor="middle" fill="var(--ink)" font-size="11" font-weight="600">GitHub Repo</text>
-                    <path d="M90 40 L120 40" stroke="var(--teal)" stroke-width="1.5" marker-end="url(#arrowT)"/>
-
-                    <rect x="120" y="20" width="70" height="40" rx="8" stroke="var(--cyan)" stroke-width="1.5" fill="rgba(130,221,255,0.08)"/>
-                    <text x="155" y="44" text-anchor="middle" fill="var(--ink)" font-size="11" font-weight="600">Job Queue</text>
-                    <path d="M190 40 L220 40" stroke="var(--cyan)" stroke-width="1.5" marker-end="url(#arrowC)"/>
-
-                    <rect x="220" y="10" width="80" height="60" rx="8" stroke="var(--coral)" stroke-width="1.5" fill="rgba(255,125,107,0.08)"/>
-                    <text x="260" y="35" text-anchor="middle" fill="var(--ink)" font-size="11" font-weight="600">Agent</text>
-                    <text x="260" y="50" text-anchor="middle" fill="var(--muted)" font-size="9">Code + Doc</text>
-                    <path d="M300 40 L330 40" stroke="var(--coral)" stroke-width="1.5" marker-end="url(#arrowR)"/>
-
-                    <rect x="330" y="20" width="40" height="40" rx="8" stroke="var(--lime)" stroke-width="1.5" fill="rgba(185,231,105,0.08)"/>
-                    <text x="350" y="44" text-anchor="middle" fill="var(--ink)" font-size="11" font-weight="600">KG</text>
-
-                    <!-- Agent detail breakdown -->
-                    <rect x="30" y="100" width="95" height="34" rx="6" stroke="var(--soft-border)" stroke-width="1" fill="rgba(255,255,255,0.04)"/>
-                    <text x="77" y="121" text-anchor="middle" fill="var(--muted)" font-size="10">AST Parser</text>
-
-                    <rect x="145" y="100" width="95" height="34" rx="6" stroke="var(--soft-border)" stroke-width="1" fill="rgba(255,255,255,0.04)"/>
-                    <text x="192" y="121" text-anchor="middle" fill="var(--muted)" font-size="10">Entity Extractor</text>
-
-                    <rect x="260" y="100" width="95" height="34" rx="6" stroke="var(--soft-border)" stroke-width="1" fill="rgba(255,255,255,0.04)"/>
-                    <text x="307" y="121" text-anchor="middle" fill="var(--muted)" font-size="10">Graph Writer</text>
-
-                    <path d="M125 117 L145 117" stroke="var(--soft-border)" stroke-width="1" stroke-dasharray="4 3"/>
-                    <path d="M240 117 L260 117" stroke="var(--soft-border)" stroke-width="1" stroke-dasharray="4 3"/>
-
-                    <!-- Label -->
-                    <text x="190" y="160" text-anchor="middle" fill="var(--muted)" font-size="9" letter-spacing="0.08em">AGENT INTERNALS</text>
-
-                    <!-- Arrow markers -->
-                    <defs>
-                      <marker id="arrowT" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10" fill="var(--teal)"/></marker>
-                      <marker id="arrowC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10" fill="var(--cyan)"/></marker>
-                      <marker id="arrowR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10" fill="var(--coral)"/></marker>
-                    </defs>
-                  </svg>
-                </div>
-              </div>
-            </article>
-
-            <!-- Slide 2: Knowledge Graph -->
-            <article class="arch-slide" data-slide="1">
-              <div class="slide-header">
-                <span class="arch-slide-num">02 / 05</span>
-                <h3>Knowledge Graph 生成</h3>
-              </div>
-              <div class="slide-body">
-                <div class="slide-text">
-                  <p class="arch-slide-desc">分析结果写入 knowledge-graph.json，涵盖文件、模块、函数、类、依赖等节点及其关联边，支持社区聚类与层级钻取。</p>
-                  <div class="arch-tags"><span>知识图谱</span><span>社区聚类</span><span>层级结构</span></div>
-                </div>
-                <div class="slide-visual">
-                  <svg viewBox="0 0 380 180" fill="none" class="slide-diagram">
-                    <!-- Central node -->
-                    <circle cx="190" cy="55" r="24" stroke="var(--teal)" stroke-width="2" fill="rgba(53,208,186,0.12)"/>
-                    <text x="190" y="59" text-anchor="middle" fill="var(--ink)" font-size="11" font-weight="700">Repo</text>
-
-                    <!-- Module nodes -->
-                    <circle cx="80" cy="28" r="18" stroke="var(--cyan)" stroke-width="1.5" fill="rgba(130,221,255,0.1)"/>
-                    <text x="80" y="32" text-anchor="middle" fill="var(--ink)" font-size="9" font-weight="600">Module</text>
-                    <line x1="98" y1="34" x2="166" y2="48" stroke="var(--cyan)" stroke-width="1" opacity="0.5"/>
-
-                    <circle cx="300" cy="28" r="18" stroke="var(--cyan)" stroke-width="1.5" fill="rgba(130,221,255,0.1)"/>
-                    <text x="300" y="32" text-anchor="middle" fill="var(--ink)" font-size="9" font-weight="600">Module</text>
-                    <line x1="282" y1="34" x2="214" y2="48" stroke="var(--cyan)" stroke-width="1" opacity="0.5"/>
-
-                    <!-- Function nodes -->
-                    <circle cx="50" cy="95" r="15" stroke="var(--coral)" stroke-width="1.5" fill="rgba(255,125,107,0.1)"/>
-                    <text x="50" y="99" text-anchor="middle" fill="var(--ink)" font-size="9" font-weight="600">Func</text>
-                    <line x1="60" y1="82" x2="70" y2="44" stroke="var(--soft-border)" stroke-width="1" opacity="0.4"/>
-
-                    <circle cx="130" cy="110" r="15" stroke="var(--coral)" stroke-width="1.5" fill="rgba(255,125,107,0.1)"/>
-                    <text x="130" y="114" text-anchor="middle" fill="var(--ink)" font-size="9" font-weight="600">Func</text>
-                    <line x1="120" y1="97" x2="90" y2="44" stroke="var(--soft-border)" stroke-width="1" opacity="0.4"/>
-
-                    <circle cx="250" cy="110" r="15" stroke="var(--coral)" stroke-width="1.5" fill="rgba(255,125,107,0.1)"/>
-                    <text x="250" y="114" text-anchor="middle" fill="var(--ink)" font-size="9" font-weight="600">Func</text>
-                    <line x1="260" y1="97" x2="290" y2="44" stroke="var(--soft-border)" stroke-width="1" opacity="0.4"/>
-
-                    <circle cx="330" cy="95" r="15" stroke="var(--lime)" stroke-width="1.5" fill="rgba(185,231,105,0.1)"/>
-                    <text x="330" y="99" text-anchor="middle" fill="var(--ink)" font-size="9" font-weight="600">Dep</text>
-                    <line x1="318" y1="83" x2="310" y2="44" stroke="var(--soft-border)" stroke-width="1" opacity="0.4"/>
-
-                    <!-- Cross dependency -->
-                    <line x1="145" y1="108" x2="235" y2="108" stroke="var(--teal)" stroke-width="1" stroke-dasharray="5 3" opacity="0.4"/>
-
-                    <!-- Legend -->
-                    <circle cx="70" cy="165" r="4" fill="var(--teal)"/><text x="82" y="169" fill="var(--muted)" font-size="8">Repo</text>
-                    <circle cx="130" cy="165" r="4" fill="var(--cyan)"/><text x="142" y="169" fill="var(--muted)" font-size="8">Module</text>
-                    <circle cx="200" cy="165" r="4" fill="var(--coral)"/><text x="212" y="169" fill="var(--muted)" font-size="8">Function</text>
-                    <circle cx="280" cy="165" r="4" fill="var(--lime)"/><text x="292" y="169" fill="var(--muted)" font-size="8">Dependency</text>
-                  </svg>
-                </div>
-              </div>
-            </article>
-
-            <!-- Slide 3: Document Import -->
-            <article class="arch-slide" data-slide="2">
-              <div class="slide-header">
-                <span class="arch-slide-num">03 / 05</span>
-                <h3>多格式文档导入</h3>
-              </div>
-              <div class="slide-body">
-                <div class="slide-text">
-                  <p class="arch-slide-desc">支持从 .md、.txt、.pdf、.docx 导入文档知识库，与代码图谱统一建模，实现跨代码与文档的知识关联。</p>
-                  <div class="arch-slide-formula">
-                    G<sub>unified</sub> = G<sub>code</sub> &cup; G<sub>doc</sub><br>
-                    <span class="formula-note">E<sub>cross</sub> = { (n<sub>code</sub>, n<sub>doc</sub>) | similarity > &theta; }</span>
-                  </div>
-                  <div class="arch-tags"><span>文档解析</span><span>多格式</span><span>知识融合</span></div>
-                </div>
-                <div class="slide-visual">
-                  <svg viewBox="0 0 340 170" fill="none" class="slide-diagram">
-                    <!-- File icons -->
-                    <rect x="10" y="15" width="50" height="28" rx="4" stroke="var(--cyan)" stroke-width="1.5" fill="rgba(130,221,255,0.08)"/>
-                    <text x="35" y="33" text-anchor="middle" fill="var(--ink)" font-size="11" font-weight="700">.md</text>
-
-                    <rect x="10" y="53" width="50" height="28" rx="4" stroke="var(--teal)" stroke-width="1.5" fill="rgba(53,208,186,0.08)"/>
-                    <text x="35" y="71" text-anchor="middle" fill="var(--ink)" font-size="11" font-weight="700">.txt</text>
-
-                    <rect x="10" y="91" width="50" height="28" rx="4" stroke="var(--coral)" stroke-width="1.5" fill="rgba(255,125,107,0.08)"/>
-                    <text x="35" y="109" text-anchor="middle" fill="var(--ink)" font-size="11" font-weight="700">.pdf</text>
-
-                    <rect x="10" y="129" width="50" height="28" rx="4" stroke="var(--lime)" stroke-width="1.5" fill="rgba(185,231,105,0.08)"/>
-                    <text x="35" y="147" text-anchor="middle" fill="var(--ink)" font-size="11" font-weight="700">.docx</text>
-
-                    <!-- Arrows converging -->
-                    <path d="M60 29 L115 75" stroke="var(--soft-border)" stroke-width="1.2"/>
-                    <path d="M60 67 L115 82" stroke="var(--soft-border)" stroke-width="1.2"/>
-                    <path d="M60 105 L115 92" stroke="var(--soft-border)" stroke-width="1.2"/>
-                    <path d="M60 143 L115 100" stroke="var(--soft-border)" stroke-width="1.2"/>
-
-                    <!-- Parser box -->
-                    <rect x="115" y="65" width="75" height="45" rx="8" stroke="var(--teal)" stroke-width="2" fill="rgba(53,208,186,0.1)"/>
-                    <text x="152" y="85" text-anchor="middle" fill="var(--ink)" font-size="11" font-weight="700">Parser</text>
-                    <text x="152" y="98" text-anchor="middle" fill="var(--muted)" font-size="9">Extract + Link</text>
-
-                    <path d="M190 87 L230 87" stroke="var(--teal)" stroke-width="1.5" marker-end="url(#arrowT)"/>
-
-                    <!-- Unified graph -->
-                    <rect x="230" y="60" width="100" height="55" rx="10" stroke="var(--teal)" stroke-width="2" fill="rgba(53,208,186,0.06)"/>
-                    <text x="280" y="78" text-anchor="middle" fill="var(--ink)" font-size="10" font-weight="700">Unified</text>
-                    <text x="280" y="93" text-anchor="middle" fill="var(--ink)" font-size="10" font-weight="700">Knowledge</text>
-                    <text x="280" y="108" text-anchor="middle" fill="var(--ink)" font-size="10" font-weight="700">Graph</text>
-                  </svg>
-                </div>
-              </div>
-            </article>
-
-            <!-- Slide 4: Dashboard -->
-            <article class="arch-slide" data-slide="3">
-              <div class="slide-header">
-                <span class="arch-slide-num">04 / 05</span>
-                <h3>Interactive Dashboard</h3>
-              </div>
-              <div class="slide-body">
-                <div class="slide-text">
-                  <p class="arch-slide-desc">Web 工作台提供图谱搜索、类型过滤、节点详情、Guided Tours 与 Domain Views，支持 PNG / SVG / JSON 导出。</p>
-                  <div class="arch-tags"><span>搜索过滤</span><span>引导导览</span><span>业务视图</span><span>导出分享</span></div>
-                </div>
-                <div class="slide-visual">
-                  <svg viewBox="0 0 380 180" fill="none" class="slide-diagram">
-                    <!-- Browser frame -->
-                    <rect x="15" y="10" width="350" height="160" rx="10" stroke="var(--soft-border)" stroke-width="1.5" fill="rgba(255,255,255,0.03)"/>
-                    <!-- Title bar -->
-                    <rect x="15" y="10" width="350" height="28" rx="10" fill="rgba(255,255,255,0.05)"/>
-                    <circle cx="32" cy="24" r="4" fill="var(--coral)"/>
-                    <circle cx="46" cy="24" r="4" fill="var(--lime)"/>
-                    <circle cx="60" cy="24" r="4" fill="var(--teal)"/>
-                    <text x="190" y="28" text-anchor="middle" fill="var(--muted)" font-size="9">127.0.0.1:5173</text>
-
-                    <!-- Sidebar -->
-                    <rect x="15" y="38" width="85" height="132" fill="rgba(53,208,186,0.04)"/>
-                    <line x1="100" y1="38" x2="100" y2="170" stroke="var(--soft-border)" stroke-width="1"/>
-                    <text x="57" y="60" text-anchor="middle" fill="var(--teal)" font-size="8" font-weight="700" letter-spacing="0.1em">FILTERS</text>
-                    <rect x="25" y="70" width="65" height="18" rx="4" fill="rgba(130,221,255,0.12)"/><text x="57" y="83" text-anchor="middle" fill="var(--ink)" font-size="8">File</text>
-                    <rect x="25" y="94" width="65" height="18" rx="4" fill="rgba(255,125,107,0.12)"/><text x="57" y="107" text-anchor="middle" fill="var(--ink)" font-size="8">Function</text>
-                    <rect x="25" y="118" width="65" height="18" rx="4" fill="rgba(185,231,105,0.12)"/><text x="57" y="131" text-anchor="middle" fill="var(--ink)" font-size="8">Module</text>
-                    <rect x="25" y="142" width="65" height="18" rx="4" fill="rgba(53,208,186,0.12)"/><text x="57" y="155" text-anchor="middle" fill="var(--ink)" font-size="8">Domain</text>
-
-                    <!-- Main graph area - mini knowledge graph -->
-                    <circle cx="180" cy="90" r="12" stroke="var(--teal)" stroke-width="1.5" fill="rgba(53,208,186,0.15)"/>
-                    <circle cx="145" cy="125" r="8" stroke="var(--cyan)" stroke-width="1" fill="rgba(130,221,255,0.1)"/>
-                    <circle cx="220" cy="115" r="8" stroke="var(--cyan)" stroke-width="1" fill="rgba(130,221,255,0.1)"/>
-                    <circle cx="160" cy="155" r="6" stroke="var(--coral)" stroke-width="1" fill="rgba(255,125,107,0.1)"/>
-                    <circle cx="250" cy="150" r="6" stroke="var(--coral)" stroke-width="1" fill="rgba(255,125,107,0.1)"/>
-                    <circle cx="280" cy="90" r="8" stroke="var(--lime)" stroke-width="1" fill="rgba(185,231,105,0.1)"/>
-                    <circle cx="310" cy="125" r="6" stroke="var(--teal)" stroke-width="1" fill="rgba(53,208,186,0.1)"/>
-                    <line x1="180" y1="102" x2="145" y2="117" stroke="var(--soft-border)" stroke-width="1" opacity="0.5"/>
-                    <line x1="180" y1="102" x2="220" y2="107" stroke="var(--soft-border)" stroke-width="1" opacity="0.5"/>
-                    <line x1="145" y1="133" x2="160" y2="149" stroke="var(--soft-border)" stroke-width="1" opacity="0.5"/>
-                    <line x1="220" y1="123" x2="250" y2="144" stroke="var(--soft-border)" stroke-width="1" opacity="0.5"/>
-                    <line x1="192" y1="90" x2="272" y2="90" stroke="var(--soft-border)" stroke-width="1" opacity="0.5"/>
-                    <line x1="288" y1="90" x2="304" y2="119" stroke="var(--soft-border)" stroke-width="1" opacity="0.5"/>
-
-                    <!-- Search bar -->
-                    <rect x="110" y="48" width="180" height="22" rx="6" stroke="var(--soft-border)" stroke-width="1" fill="rgba(255,255,255,0.04)"/>
-                    <text x="125" y="63" fill="var(--muted)" font-size="9">Search nodes...</text>
-                  </svg>
-                </div>
-              </div>
-            </article>
-
-            <!-- Slide 5: Local-First -->
-            <article class="arch-slide" data-slide="4">
-              <div class="slide-header">
-                <span class="arch-slide-num">05 / 05</span>
-                <h3>Local-First 存储架构</h3>
-              </div>
-              <div class="slide-body">
-                <div class="slide-text">
-                  <p class="arch-slide-desc">所有数据存储在本地 ~/.openrepo-copilot，无需云端依赖。支持 OPENREPO_HOME 自定义路径，图谱产物可提交至 Git 供团队复用。</p>
-                  <div class="arch-slide-formula">
-                    OPENREPO_HOME=/custom/path<br>
-                    <span class="formula-note">.understand-anything/knowledge-graph.json &rarr; git commit</span>
-                  </div>
-                  <div class="arch-tags"><span>本地存储</span><span>离线可用</span><span>团队共享</span></div>
-                </div>
-                <div class="slide-visual">
-                  <svg viewBox="0 0 380 180" fill="none" class="slide-diagram">
-                    <!-- Directory tree -->
-                    <text x="20" y="25" fill="var(--teal)" font-size="11" font-weight="700" font-family="monospace">~/.openrepo-copilot/</text>
-
-                    <text x="36" y="48" fill="var(--muted)" font-size="10" font-family="monospace">├── projects/</text>
-                    <text x="36" y="68" fill="var(--muted)" font-size="10" font-family="monospace">├── jobs/</text>
-                    <text x="36" y="88" fill="var(--teal)" font-size="10" font-family="monospace" font-weight="600">└── .understand-anything/</text>
-                    <text x="60" y="106" fill="var(--teal)" font-size="9" font-family="monospace" font-weight="600">└── knowledge-graph.json</text>
-
-                    <!-- Git symbol -->
-                    <rect x="260" y="85" width="80" height="30" rx="6" stroke="var(--lime)" stroke-width="1.5" fill="rgba(185,231,105,0.08)"/>
-                    <text x="300" y="105" text-anchor="middle" fill="var(--ink)" font-size="10" font-weight="700">git commit</text>
-                    <path d="M210 100 L260 100" stroke="var(--lime)" stroke-width="1.2" stroke-dasharray="5 3"/>
-
-                    <!-- Cloud with X -->
-                    <text x="300" y="40" text-anchor="middle" fill="var(--muted)" font-size="24" opacity="0.3">&#9729;</text>
-                    <line x1="285" y1="22" x2="315" y2="48" stroke="var(--coral)" stroke-width="2" opacity="0.5"/>
-                    <text x="300" y="65" text-anchor="middle" fill="var(--muted)" font-size="9">No cloud needed</text>
-                  </svg>
-                </div>
-              </div>
-            </article>
-
-          </div>
-          <div class="arch-nav">
-            <button class="arch-prev" type="button" aria-label="上一页">←</button>
-            <div class="arch-dots">
-              <button class="arch-dot active" data-slide="0" aria-label="第1页"></button>
-              <button class="arch-dot" data-slide="1" aria-label="第2页"></button>
-              <button class="arch-dot" data-slide="2" aria-label="第3页"></button>
-              <button class="arch-dot" data-slide="3" aria-label="第4页"></button>
-              <button class="arch-dot" data-slide="4" aria-label="第5页"></button>
-            </div>
-            <button class="arch-next" type="button" aria-label="下一页">→</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="section demo-section-wrapper" id="demo">
-        <div class="section-heading compact reveal">
-          <h2>从仓库到知识图谱的完整旅程</h2>
-        </div>
-        <div class="demo-intro reveal">
-          <p>
-            输入一个 GitHub 仓库地址，系统自动创建项目、执行多 Agent 分析、生成交互式知识图谱。
-          </p>
-          <div class="demo-intro-row">
-            <div class="demo-status" aria-label="演示状态">
-              <span class="status-dot"></span>
-              <strong>演示场景</strong>
-              <span>分析 GitHub 开源仓库并生成知识图谱</span>
-            </div>
-            <a class="button primary" href="https://github.com/Knight5128/OpenRepoCopilot" target="_blank" rel="noreferrer">查看项目</a>
-          </div>
-        </div>
-        <div class="demo-stage reveal" aria-label="OpenRepoCopilot 演示流程">
-          <div class="stage-screen">
-            <div class="stage-topbar">
-              <span></span>
-              <span></span>
-              <span></span>
-              <p>OpenRepoCopilot / Dashboard</p>
-            </div>
-            <div class="stage-body">
-              <div class="stage-sidebar">
-                <span class="stage-label">项目</span>
-                <strong>openrepo-copilot</strong>
-                <span class="stage-label">分析进度</span>
-                <div class="score-bar"><span style="width: 100%"></span></div>
-                <span class="stage-label">节点数量</span>
-                <div class="score-bar"><span style="width: 72%"></span></div>
-              </div>
-              <div class="stage-output">
-                <div class="output-line">
-                  <span>01</span>
-                  <p>克隆仓库并导入 .md / .txt / .pdf 文档，创建本地项目。</p>
-                </div>
-                <div class="output-line">
-                  <span>02</span>
-                  <p>提交分析任务到队列，多 Agent 自动执行代码与文档解析。</p>
-                </div>
-                <div class="output-line">
-                  <span>03</span>
-                  <p>生成 knowledge-graph.json，包含文件、模块、函数与依赖关系。</p>
-                </div>
-                <div class="output-line">
-                  <span>04</span>
-                  <p>在 Dashboard 中搜索节点、过滤类型、查看 Guided Tours 与 Domain Views。</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="demo-steps" aria-label="演示步骤">
-            <article class="demo-step reveal-step">
-              <span>&#43;</span>
-              <div>
-                <h3>创建项目</h3>
-                <p>输入 GitHub 仓库地址或上传文档集合。</p>
-              </div>
-            </article>
-            <article class="demo-step reveal-step">
-              <span>&#9881;</span>
-              <div>
-                <h3>Agent 分析</h3>
-                <p>多 Agent 流水线自动解析代码结构与文档内容。</p>
-              </div>
-            </article>
-            <article class="demo-step reveal-step">
-              <span>&#9672;</span>
-              <div>
-                <h3>图谱生成</h3>
-                <p>输出结构化知识图谱，支持社区聚类与层级钻取。</p>
-              </div>
-            </article>
-            <article class="demo-step reveal-step">
-              <span>&#8853;</span>
-              <div>
-                <h3>交互探索</h3>
-                <p>在 Dashboard 中搜索、过滤、导览，深入理解仓库。</p>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section install-section" id="install">
-        <div class="section-heading compact reveal">
-          <h2>快速启动</h2>
-        </div>
-        <div class="install-shell reveal">
-          <div class="install-topbar">
-            <span></span><span></span><span></span>
-            <p>终端</p>
-          </div>
-          <div class="install-body">
-            <div class="install-step">
-              <span class="install-label">Install</span>
-              <div class="install-cmd">
-                <code>pnpm install</code>
-                <button class="copy-btn" type="button" data-copy="pnpm install" aria-label="复制命令">Copy</button>
-              </div>
-            </div>
-            <div class="install-step">
-              <span class="install-label">Build</span>
-              <div class="install-cmd">
-                <code>pnpm --filter @understand-anything/core build && pnpm --filter @openrepo-copilot/server build && pnpm --filter @understand-anything/dashboard build</code>
-                <button class="copy-btn" type="button" data-copy="pnpm --filter @understand-anything/core build && pnpm --filter @openrepo-copilot/server build && pnpm --filter @understand-anything/dashboard build" aria-label="复制命令">Copy</button>
-              </div>
-            </div>
-            <div class="install-step">
-              <span class="install-label">Run</span>
-              <div class="install-cmd">
-                <code>node understand-anything-plugin/packages/openrepo/dist/cli.js ui</code>
-                <button class="copy-btn" type="button" data-copy="node understand-anything-plugin/packages/openrepo/dist/cli.js ui" aria-label="复制命令">Copy</button>
-              </div>
-            </div>
-          </div>
-          <div class="install-footer">
-            <a class="button primary" href="https://github.com/Knight5128/OpenRepoCopilot" target="_blank" rel="noreferrer">完整文档</a>
-          </div>
+        <div class="portal-grid">
+          <a class="portal-card reveal-step" href="usage.html">
+            <span class="portal-icon">◷</span>
+            <h3>使用流程</h3>
+            <p>从安装、启动工作台到生成知识图谱、在仪表盘中探索的端到端旅程。</p>
+            <span class="portal-go">进入 →</span>
+          </a>
+          <a class="portal-card reveal-step" href="architecture.html">
+            <span class="portal-icon">◈</span>
+            <h3>系统架构</h3>
+            <p>动画演示 Agent 如何把项目拆成节点、连成边，以及内置类 Claude Code Agent 循环。</p>
+            <span class="portal-go">进入 →</span>
+          </a>
+          <a class="portal-card reveal-step" href="skills.html">
+            <span class="portal-icon">⌘</span>
+            <h3>SKILL解析</h3>
+            <p>逐个拆解 11 个 skill 命令的核心规范、工作流与产物。</p>
+            <span class="portal-go">进入 →</span>
+          </a>
         </div>
       </section>
     </main>
+
+    <footer class="site-footer">
+      <span class="footer-logo">OpenRepoCopilot</span>
+      <div class="footer-links">
+        <a href="usage.html">使用流程</a>
+        <a href="architecture.html">系统架构</a>
+        <a href="skills.html">SKILL解析</a>
+        <a href="https://github.com/Knight5128/OpenRepoCopilot" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+      <p>本地优先的 AI 仓库知识工作台</p>
+      <span class="footer-course">© OpenRepoCopilot</span>
+    </footer>
 
     <script src="./script.js"></script>
   </body>

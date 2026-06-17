@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>使用流程 | OpenRepoCopilot</title>
+    <meta
+      name="description"
+      content="OpenRepoCopilot 端到端使用旅程：安装、启动本地工作台、创建项目、队列分析、生成知识图谱并在仪表盘中探索。"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-page="usage">
+    <header class="site-header">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="./assets/openrepo-copilot-logo.png" alt="" />
+        <span>OpenRepoCopilot</span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="index.html" data-nav="home">快速开始</a>
+        <a href="usage.html" data-nav="usage">使用流程</a>
+        <a href="architecture.html" data-nav="architecture">系统架构</a>
+        <a href="skills.html" data-nav="skills">SKILL解析</a>
+      </nav>
+      <div class="header-actions">
+        <div class="theme-switcher" aria-label="配色模式">
+          <button type="button" data-theme-choice="light" aria-label="Light mode">☀</button>
+          <button type="button" data-theme-choice="dark" aria-label="Dark mode">☾</button>
+          <button type="button" data-theme-choice="system" aria-label="System">⚙</button>
+        </div>
+        <a class="nav-cta" href="https://github.com/Knight5128/OpenRepoCopilot" target="_blank" rel="noreferrer">GitHub</a>
+        <button class="nav-toggle" type="button" aria-label="菜单" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+    <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+    <main>
+      <section class="page-hero">
+        <div class="page-hero-inner reveal">
+          <span class="page-kicker">USAGE FLOW · 使用流程</span>
+          <h1>从安装到洞察的端到端旅程</h1>
+          <p>
+            一条主线贯穿 OpenRepoCopilot 的日常使用：装好 App 与 skill，启动本地工作台，把 GitHub 仓库或文档变成可探索的知识图谱。
+          </p>
+        </div>
+      </section>
+
+      <!-- Vertical workflow timeline -->
+      <section class="section product-section">
+        <div class="section-heading compact reveal">
+          <h2>六步走通全流程</h2>
+        </div>
+        <div class="product-shell">
+          <aside class="tool-panel reveal-left" aria-label="环境信息">
+            <div class="panel-row">
+              <span>运行方式</span>
+              <strong>本地优先 · 绑定 127.0.0.1</strong>
+            </div>
+            <div class="panel-row">
+              <span>数据源</span>
+              <strong>GitHub 公共仓库 / 文档集合</strong>
+            </div>
+            <div class="panel-row">
+              <span>支持格式</span>
+              <strong>.md / .txt / .pdf / .docx</strong>
+            </div>
+            <div class="panel-row">
+              <span>本地存储</span>
+              <strong>~/.openrepo-copilot</strong>
+            </div>
+            <a class="mock-button" href="index.html#top">获取客户端 / 安装 skill</a>
+          </aside>
+          <div class="workspace reveal-right">
+            <div class="workspace-topbar">
+              <span></span><span></span><span></span>
+              <p>OpenRepoCopilot Workbench</p>
+            </div>
+            <div class="workflow-list">
+              <div class="workflow-item reveal-step">
+                <span class="node"></span>
+                <div>
+                  <h3>安装 App 与 skill</h3>
+                  <p>下载客户端，或运行一键脚本将全套 skill 装入你的 Agent（Claude Code / Codex）。</p>
+                </div>
+              </div>
+              <div class="workflow-item reveal-step">
+                <span class="node"></span>
+                <div>
+                  <h3>启动本地工作台</h3>
+                  <p><code>/openrepo</code> 启动 Workbench，浏览器打开 <code>http://127.0.0.1:5173/</code>，本地管理多个项目。</p>
+                </div>
+              </div>
+              <div class="workflow-item reveal-step">
+                <span class="node"></span>
+                <div>
+                  <h3>创建项目</h3>
+                  <p>填入 GitHub 公共仓库地址，或导入 <code>.md / .txt / .pdf / .docx</code> 文档知识库。</p>
+                </div>
+              </div>
+              <div class="workflow-item reveal-step">
+                <span class="node"></span>
+                <div>
+                  <h3>队列分析</h3>
+                  <p><code>/openrepo-analyze &lt;project-id&gt;</code> 领取队列任务，多 Agent 自动执行（<code>github_repo</code> / <code>document_kb</code> 两种流程）。</p>
+                </div>
+              </div>
+              <div class="workflow-item reveal-step">
+                <span class="node"></span>
+                <div>
+                  <h3>生成知识图谱</h3>
+                  <p>输出 <code>knowledge-graph.json</code>，包含文件、模块、函数、依赖等节点与关联边、分层与导览。</p>
+                </div>
+              </div>
+              <div class="workflow-item reveal-step">
+                <span class="node"></span>
+                <div>
+                  <h3>仪表盘探索</h3>
+                  <p><code>/understand-dashboard</code> 可视化探索，并配合 <code>/understand-chat</code>、<code>/understand-diff</code>、<code>/understand-domain</code>、<code>/understand-onboard</code> 深入理解。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Dashboard stage demo -->
+      <section class="section demo-section-wrapper">
+        <div class="section-heading compact reveal">
+          <h2>一次完整分析长这样</h2>
+        </div>
+        <div class="demo-intro reveal">
+          <p>输入一个仓库地址，系统自动创建项目、执行多 Agent 分析、生成交互式知识图谱，全程本地完成。</p>
+          <div class="demo-intro-row">
+            <div class="demo-status" aria-label="演示状态">
+              <span class="status-dot"></span>
+              <strong>演示场景</strong>
+              <span>分析 GitHub 开源仓库并生成知识图谱</span>
+            </div>
+            <a class="button primary" href="architecture.html">看看背后的架构 →</a>
+          </div>
+        </div>
+        <div class="demo-stage reveal" aria-label="OpenRepoCopilot 演示流程">
+          <div class="stage-screen">
+            <div class="stage-topbar">
+              <span></span><span></span><span></span>
+              <p>OpenRepoCopilot / Dashboard</p>
+            </div>
+            <div class="stage-body">
+              <div class="stage-sidebar">
+                <span class="stage-label">项目</span>
+                <strong>openrepo-copilot</strong>
+                <span class="stage-label">分析进度</span>
+                <div class="score-bar"><span style="width: 100%"></span></div>
+                <span class="stage-label">节点数量</span>
+                <div class="score-bar"><span style="width: 72%"></span></div>
+              </div>
+              <div class="stage-output">
+                <div class="output-line">
+                  <span>01</span>
+                  <p>克隆仓库并导入 .md / .txt / .pdf 文档，创建本地项目。</p>
+                </div>
+                <div class="output-line">
+                  <span>02</span>
+                  <p>提交分析任务到队列，多 Agent 自动执行代码与文档解析。</p>
+                </div>
+                <div class="output-line">
+                  <span>03</span>
+                  <p>生成 knowledge-graph.json，包含文件、模块、函数与依赖关系。</p>
+                </div>
+                <div class="output-line">
+                  <span>04</span>
+                  <p>在 Dashboard 中搜索节点、过滤类型、查看 Guided Tours 与 Domain Views。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-steps" aria-label="演示步骤">
+            <article class="demo-step reveal-step">
+              <span>&#43;</span>
+              <div>
+                <h3>创建项目</h3>
+                <p>输入 GitHub 仓库地址或上传文档集合。</p>
+              </div>
+            </article>
+            <article class="demo-step reveal-step">
+              <span>&#9881;</span>
+              <div>
+                <h3>Agent 分析</h3>
+                <p>多 Agent 流水线自动解析代码结构与文档内容。</p>
+              </div>
+            </article>
+            <article class="demo-step reveal-step">
+              <span>&#9672;</span>
+              <div>
+                <h3>图谱生成</h3>
+                <p>输出结构化知识图谱，支持社区聚类与层级钻取。</p>
+              </div>
+            </article>
+            <article class="demo-step reveal-step">
+              <span>&#8853;</span>
+              <div>
+                <h3>交互探索</h3>
+                <p>在 Dashboard 中搜索、过滤、导览，深入理解仓库。</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section next-cta-section">
+        <div class="next-cta reveal">
+          <p>想知道这些节点与边是怎么被 Agent 拆出来、连起来的？</p>
+          <a class="button primary" href="architecture.html">前往「系统架构」</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span class="footer-logo">OpenRepoCopilot</span>
+      <div class="footer-links">
+        <a href="index.html">快速开始</a>
+        <a href="architecture.html">系统架构</a>
+        <a href="skills.html">SKILL解析</a>
+        <a href="https://github.com/Knight5128/OpenRepoCopilot" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+      <p>本地优先的 AI 仓库知识工作台</p>
+      <span class="footer-course">© OpenRepoCopilot</span>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
