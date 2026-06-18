@@ -6,6 +6,67 @@ import { GROUPS, SKILLS, skillById, groupById } from "../data/skills.js";
 import { formatText } from "../utils/formatText.jsx";
 import { useReveal } from "../hooks/useReveal.js";
 
+function SkillGroove({ skill }) {
+  // Lid starts closed for every skill — re-mounted per skill via `key`, so
+  // switching skills always returns to the covered state.
+  const [open, setOpen] = useState(false);
+  const flowTitle = skill.flowTitle || "核心规范 / 工作流";
+
+  return (
+    <div className={`skill-groove${open ? " is-open" : ""}`}>
+      {/* The recessed well — holds the full technical breakdown. */}
+      <div className="skill-groove-collapse skill-groove-well-wrap">
+        <div className="skill-groove-well" aria-hidden={!open}>
+          <div className="skill-section">
+            <h4>{flowTitle}</h4>
+            <ol className="skill-flow">
+              {skill.flow.map((item, i) => (
+                <li key={i}>{formatText(item)}</li>
+              ))}
+            </ol>
+          </div>
+          <div className="skill-section">
+            <h4>关键功能 / 产物</h4>
+            <ul className="skill-funcs">
+              {skill.funcs.map((item, i) => (
+                <li key={i}>{formatText(item)}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* The lid — plain-language summary, sits over the groove when closed. */}
+      <button
+        type="button"
+        className="skill-groove-lid"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+      >
+        <div className="skill-groove-collapse skill-groove-face-wrap">
+          <div className="skill-groove-face" aria-hidden={open}>
+            <div className="groove-plain">
+              <span className="groove-plain-label">核心规范 / 工作流</span>
+              <p>{formatText(skill.plainFlow)}</p>
+            </div>
+            <div className="groove-plain">
+              <span className="groove-plain-label">关键功能 / 产物</span>
+              <p>{formatText(skill.plainFuncs)}</p>
+            </div>
+          </div>
+        </div>
+        {/* The handle bar doubles as the seam — always visible. */}
+        <span className="skill-groove-handle">
+          <span className="groove-handle-icon" aria-hidden="true" />
+          <span className="groove-handle-label">
+            {open ? "收起" : "展开完整技术细节"}
+          </span>
+        </span>
+      </button>
+    </div>
+  );
+}
+
 function DetailPanel({ skill }) {
   const group = groupById[skill.group];
   return (
@@ -33,22 +94,7 @@ function DetailPanel({ skill }) {
           <code>{skill.def}</code>
         </div>
       </div>
-      <div className="skill-section">
-        <h4>{skill.flowTitle || "核心规范 / 工作流"}</h4>
-        <ol className="skill-flow">
-          {skill.flow.map((item, i) => (
-            <li key={i}>{formatText(item)}</li>
-          ))}
-        </ol>
-      </div>
-      <div className="skill-section">
-        <h4>关键功能 / 产物</h4>
-        <ul className="skill-funcs">
-          {skill.funcs.map((item, i) => (
-            <li key={i}>{formatText(item)}</li>
-          ))}
-        </ul>
-      </div>
+      <SkillGroove skill={skill} key={skill.id} />
     </article>
   );
 }

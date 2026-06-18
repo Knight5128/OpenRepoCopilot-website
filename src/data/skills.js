@@ -18,6 +18,8 @@ export const SKILLS = [
     purpose: "启动 OpenRepoCopilot 本地工作台，管理公共 GitHub 仓库与文档知识库项目。",
     params: "无",
     def: "skills/openrepo/SKILL.md",
+    plainFlow: "找到插件、需要时装好依赖，然后在你电脑本地开一个网页工作台。",
+    plainFuncs: "一个只跑在本机的控制台，集中管理你所有的仓库和文档项目。",
     flow: [
       "按顺序解析插件根目录：`${CLAUDE_PLUGIN_ROOT}` → `~/.understand-anything-plugin` → 常见安装路径。",
       "如需则构建 CLI：`pnpm install --frozen-lockfile && pnpm --filter @openrepo-copilot/server build`。",
@@ -38,6 +40,8 @@ export const SKILLS = [
     purpose: "领取并执行工作台队列中的一个分析任务，跑通仓库 / 文档分析流程。",
     params: "`<project-id>`（必填，从工作台复制）",
     def: "skills/openrepo-analyze/SKILL.md",
+    plainFlow: "从工作台队列里领一个任务，按它是「代码仓库」还是「文档库」走对应的分析。",
+    plainFuncs: "替工作台把排队的项目逐个跑完分析，结果自动归档到指定位置。",
     flow: [
       "接收 `project-id`；缺失则向用户索取。",
       "确保 CLI 已构建：`pnpm --filter @openrepo-copilot/server build`。",
@@ -60,6 +64,8 @@ export const SKILLS = [
     purpose: "分析代码库，产出可交互的知识图谱，用于理解架构、组件与关系。这是核心命令。",
     params: "`[path] [--full|--auto-update|--no-auto-update|--review|--language <lang>]`",
     def: "skills/understand/SKILL.md",
+    plainFlow: "扫描整个代码库 → 分批让多个 AI 并行读代码 → 合并成一张知识图谱 → 存档并打开仪表盘。",
+    plainFuncs: "把一座陌生代码库变成能点开查看的结构图，之后只对改动过的文件做增量更新。",
     flowTitle: "核心规范 / 工作流（Phase 0–7）",
     flow: [
       "**Phase 0 预检**：解析 `PROJECT_ROOT`，识别并重定向 git worktree 以保护 `.understand-anything/`，构建插件，采集 README / 目录树。",
@@ -86,6 +92,8 @@ export const SKILLS = [
     purpose: "基于知识图谱就代码库提问，无需加载整张图即可高效问答。",
     params: "`[query]`",
     def: "skills/understand-chat/SKILL.md",
+    plainFlow: "先在图谱里搜到相关的几个节点，只取这一小块上下文来回答你的问题。",
+    plainFuncs: "像问搜索引擎一样问代码库，答案会指向具体的文件、函数和它们的关系。",
     flow: [
       "检查 `knowledge-graph.json` 是否存在，缺失则提示先跑 `/understand`。",
       "只读项目元数据；用 Grep 在节点 `name` / `summary` 中匹配关键词。",
@@ -106,6 +114,8 @@ export const SKILLS = [
     purpose: "对某个文件 / 函数 / 模块做深入讲解，结合图谱邻域与真实源码。",
     params: "`[file-path]`（支持 `src/auth/login.ts:verifyToken` 记法）",
     def: "skills/understand-explain/SKILL.md",
+    plainFlow: "定位你指的文件或函数，连上它的调用关系，再读真实源码逐层讲清楚。",
+    plainFuncs: "把某段代码「是什么、连着谁、怎么跑」一次讲透，照顾不熟该语言的读者。",
     flow: [
       "用 Grep 定位目标节点（按 `filePath` 或函数名）。",
       "找出所有相连边（出向调用 / 入向调用、导入）构建邻域。",
@@ -125,6 +135,8 @@ export const SKILLS = [
     purpose: "分析 git diff / PR，理解改了什么、影响哪些组件、风险有多大。",
     params: "`无`（读取当前 diff）",
     def: "skills/understand-diff/SKILL.md",
+    plainFlow: "看这次改了哪些文件，顺着图谱找出会被波及的组件和架构层。",
+    plainFuncs: "评估一次改动的「影响半径」与风险，并给仪表盘画出高亮叠加层。",
     flow: [
       "取变更文件：`git diff --name-only` 或 `git diff main...HEAD --name-only`。",
       "用 Grep 在 `filePath` 中定位变更节点，再找 1-hop 受影响组件与架构层。",
@@ -145,6 +157,8 @@ export const SKILLS = [
     purpose: "为加入项目的新成员生成一份上手引导文档。",
     params: "无",
     def: "skills/understand-onboard/SKILL.md",
+    plainFlow: "读取项目结构和学习路径，整理成一份给新人看的上手文档。",
+    plainFuncs: "一键生成新人引导手册：项目概览、架构、关键概念和文件地图。",
     flow: [
       "读取项目元数据、`layers`（架构）与 `tour`（学习路径）。",
       "只取文件级结构节点（跳过函数/类），识别复杂度热点。",
@@ -164,6 +178,8 @@ export const SKILLS = [
     purpose: "启动交互式 Web 仪表盘，可视化代码库的知识图谱。",
     params: "`[project-path]`（可选，默认当前目录）",
     def: "skills/understand-dashboard/SKILL.md",
+    plainFlow: "找到图谱文件、装好依赖，在后台开一个可视化网页。",
+    plainFuncs: "打开一个能拖拽、缩放的网页，直观浏览整张知识图谱。",
     flow: [
       "确定项目目录并检查 `knowledge-graph.json` 存在。",
       "解析 dashboard 代码路径，`pnpm install --frozen-lockfile` 并构建 core。",
@@ -184,6 +200,8 @@ export const SKILLS = [
     purpose: "从代码库提炼业务领域知识，生成可交互的领域流程图。",
     params: "`[--full]`",
     def: "skills/understand-domain/SKILL.md",
+    plainFlow: "轻量扫描或复用已有图谱 → 让 AI 提炼业务流程 → 存档并打开仪表盘。",
+    plainFuncs: "从代码里挖出「业务上在做什么」，画成一张可交互的流程图。",
     flowTitle: "核心规范 / 工作流（Phase 0–6）",
     flow: [
       "**Phase 0–1**：解析 ROOT、处理 worktree；检测已有 `knowledge-graph.json`。",
@@ -206,6 +224,8 @@ export const SKILLS = [
     purpose: "分析 Karpathy 范式的 LLM wiki 知识库，做实体抽取、隐式关系与主题聚类，生成知识图谱。",
     params: "`[wiki-directory]`",
     def: "skills/understand-knowledge/SKILL.md",
+    plainFlow: "解析 wiki 笔记里的链接和主题 → 分批让 AI 找出隐含关系 → 合并成知识图谱。",
+    plainFuncs: "把一堆互相链接的知识笔记，连成一张能浏览的概念网络。",
     flowTitle: "核心规范 / 工作流（Phase 1–6）",
     flow: [
       "**Phase 1–2 检测/扫描**：`parse-knowledge-base.py` 识别原始源、`[[wikilink]]`、schema、`index.md` / `log.md`，产出文章/源/主题节点与 `related`/`categorized_under` 边。",
