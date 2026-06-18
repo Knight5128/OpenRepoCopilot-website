@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "本地优先的 AI 仓库知识工作台 · 官网",
+  "description": "基于 Agent 的本地优先的项目知识图谱分析工作台 · 官网",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

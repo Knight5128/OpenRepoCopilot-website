@@ -166,7 +166,7 @@ export default function Home() {
 
       <section className="section portal-section">
         <div className="section-heading compact reveal">
-          <h2>了解 OpenRepo Copilot</h2>
+          <h2>全面了解 OpenRepo Copilot</h2>
         </div>
         <div className="portal-grid">
           {PORTALS.map((p) => (

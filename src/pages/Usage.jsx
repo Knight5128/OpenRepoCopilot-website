@@ -13,22 +13,21 @@ const FLOWS = {
     color: "var(--teal)",
     title: "OpenRepoCopilot Workbench",
     env: [
-      ["运行方式", "桌面客户端 + 本地 Workbench"],
-      ["入口命令", "/openrepo · /openrepo-analyze"],
-      ["数据源", "GitHub 公共仓库 / 文档集合"],
+      ["运行方式", "桌面 Workbench App"],
+      ["入口命令", "点击桌面图标 · /openrepo"],
+      ["数据源", "GitHub 公共仓库 / 上传文档集合"],
       ["适合", "多项目集中管理、队列化分析"],
     ],
     steps: [
       {
         h: "安装桌面客户端",
-        body: <>下载 Windows <code>.exe</code> 安装包，安装 OpenRepoCopilot 桌面客户端。</>,
+        body: <>前往官网下载 Windows <code>.exe</code> 安装包，安装 OpenRepoCopilot 桌面客户端。</>,
       },
       {
         h: "启动本地工作台",
         body: (
           <>
-            <code>/openrepo</code> 启动 Workbench，浏览器打开 <code>http://127.0.0.1:5173/</code>
-            ，集中管理多个项目。
+            直接点击可执行文件 <code>.exe</code> 快捷方式，或者通过命令 <code>/openrepo</code> 启动 Electron 桌面 Workbench，离开始分析只差一步。
           </>
         ),
       },
@@ -75,9 +74,9 @@ const FLOWS = {
     color: "var(--cyan)",
     title: "Agent · Claude Code / Codex",
     env: [
-      ["运行方式", "skill 装入 Agent，直接运行"],
+      ["运行方式", "skill 命令 · 支持多种 Agent"],
       ["入口命令", "/understand 家族"],
-      ["数据源", "本地仓库 / wiki 知识库"],
+      ["数据源", "本地项目仓库 / 本地知识库"],
       ["适合", "单仓库即开即用、终端 / CI 工作流"],
     ],
     steps: [
@@ -109,7 +108,7 @@ const FLOWS = {
         h: "启动仪表盘",
         body: (
           <>
-            <code>/understand-dashboard</code> 启动交互式 Web 仪表盘，绑定 <code>127.0.0.1</code> 本地可视化探索。
+            <code>/understand-dashboard</code> 启动交互式 Web 仪表盘，直接打开 <code>127.0.0.1</code> 即可本地可视化探索。
           </>
         ),
       },
@@ -152,17 +151,16 @@ export default function Usage() {
         <PageHeroBackdrop />
         <div className="page-hero-inner reveal">
           <span className="page-kicker">USAGE FLOW · 使用流程</span>
-          <h1>从安装到洞察的端到端旅程</h1>
+          <h1>从安装到项目洞察的全旅程</h1>
           <p>
-            OpenRepo Copilot 有两条通往知识图谱的路径：装好桌面客户端走 Workbench
-            队列分析，或把 skill 装进 Agent 直接开跑。选一条，看完整流程。
+            两种访问 OpenRepo Copilot 的方式任你选择：官网一键下载桌面客户端，导入想要深入了解的项目/文档，一键分析即可；或者，你也可以把由 Copilot 的核心能力所精炼成的 skill 装进你常用的 Agent ，一键调用。任你所选。
           </p>
         </div>
       </section>
 
       <section className="section product-section">
         <div className="section-heading compact reveal">
-          <h2>两种使用方式，同一套知识图谱</h2>
+          <h2>两种方式，交付同一套知识洞察图谱</h2>
         </div>
 
         <div className="flow-switch reveal" role="tablist" aria-label="选择使用方式">
@@ -217,71 +215,7 @@ export default function Usage() {
         </div>
       </section>
 
-      <section className="section demo-section-wrapper">
-        <div className="section-heading compact reveal">
-          <h2>一次完整分析长这样</h2>
-        </div>
-        <div className="demo-intro reveal">
-          <p>
-            无论走哪条路径，最终都汇聚到同一份交互式知识图谱：系统自动创建项目、执行多 Agent
-            分析、生成图谱，全程本地完成。
-          </p>
-          <div className="demo-intro-row">
-            <div className="demo-status" aria-label="演示状态">
-              <span className="status-dot"></span>
-              <strong>演示场景</strong>
-              <span>分析 GitHub 开源仓库并生成知识图谱</span>
-            </div>
-          </div>
-        </div>
-        <div className="demo-stage reveal" aria-label="OpenRepoCopilot 演示流程">
-          <div className="stage-screen">
-            <div className="stage-topbar">
-              <span></span><span></span><span></span>
-              <p>OpenRepoCopilot / Dashboard</p>
-            </div>
-            <div className="stage-body">
-              <div className="stage-sidebar">
-                <span className="stage-label">项目</span>
-                <strong>openrepo-copilot</strong>
-                <span className="stage-label">分析进度</span>
-                <div className="score-bar"><span style={{ width: "100%" }}></span></div>
-                <span className="stage-label">节点数量</span>
-                <div className="score-bar"><span style={{ width: "72%" }}></span></div>
-              </div>
-              <div className="stage-output">
-                <div className="output-line">
-                  <span>01</span>
-                  <p>克隆仓库并导入 .md / .txt / .pdf 文档，创建本地项目。</p>
-                </div>
-                <div className="output-line">
-                  <span>02</span>
-                  <p>提交分析任务到队列，多 Agent 自动执行代码与文档解析。</p>
-                </div>
-                <div className="output-line">
-                  <span>03</span>
-                  <p>生成 knowledge-graph.json，包含文件、模块、函数与依赖关系。</p>
-                </div>
-                <div className="output-line">
-                  <span>04</span>
-                  <p>在 Dashboard 中搜索节点、过滤类型、查看 Guided Tours 与 Domain Views。</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="demo-steps" aria-label="演示步骤">
-            {DEMO_STEPS.map((d) => (
-              <article className="demo-step reveal-step" key={d.h}>
-                <span>{d.glyph}</span>
-                <div>
-                  <h3>{d.h}</h3>
-                  <p>{d.p}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       <section className="section next-cta-section">
         <div className="next-cta reveal">
