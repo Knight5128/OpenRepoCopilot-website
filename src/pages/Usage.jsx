@@ -32,6 +32,14 @@ const FLOWS = {
         ),
       },
       {
+        h: "配置 LLM API / Endpoint",
+        body: (
+          <>
+            在工作台设置中填入 LLM 的 API Key 与 <code>Endpoint</code>，为内置 Agent 循环配置驱动分析的模型。
+          </>
+        ),
+      },
+      {
         h: "创建项目",
         body: (
           <>
@@ -43,24 +51,23 @@ const FLOWS = {
         h: "队列分析",
         body: (
           <>
-            <code>/openrepo-analyze &lt;project-id&gt;</code> 领取队列任务，多 Agent 自动执行（
-            <code>github_repo</code> / <code>document_kb</code> 两种流程）。
+            进入项目界面，一键点击开始分析，由 Workbench 内置 Agent 循环自动对项目进行分析。
           </>
         ),
       },
       {
-        h: "生成知识图谱",
+        h: "等待分析完成",
         body: (
           <>
-            输出 <code>knowledge-graph.json</code>：文件 / 模块 / 函数 / 依赖等节点与关联边、分层与导览。
+            Agent 循环逐阶段推进，完成后自动产出 <code>knowledge-graph.json</code>：文件 / 模块 / 函数 / 依赖等节点与关联边、分层与导览。
           </>
         ),
       },
       {
-        h: "工作台探索",
+        h: "进入可交互知识图谱探索",
         body: (
           <>
-            在 Workbench 内置仪表盘搜索节点、过滤类型、查看 Guided Tour 与 Domain View。
+            打开项目专属 Graph View，通过搜索节点、过滤类型、查看 Guided Tour 与 Domain View 等交互方式，深入洞察项目。
           </>
         ),
       },

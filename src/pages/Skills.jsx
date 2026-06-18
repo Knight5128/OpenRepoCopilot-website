@@ -110,9 +110,9 @@ export default function Skills() {
         <PageHeroBackdrop />
         <div className="page-hero-inner reveal">
           <span className="page-kicker">SKILL BREAKDOWN · SKILL解析</span>
-          <h1>10 个 skill，连成一张能点的图</h1>
+          <h1>10个 skill，带来 >10 倍的效果</h1>
           <p>
-            OpenRepo Copilot 把能力封装成可被 Agent 调用的 skill 命令。下面这张图按职责分簇 —— 点任意节点，下方展开它的用途、参数、核心规范工作流与产物。
+            OpenRepo Copilot 的能力同时被封装成可被 Agent 调用的 skill 命令。看似更难上手的交互方式，带来的是更强大的 Agent 能力、更丰富的产物形式，以及更深刻的洞察。
           </p>
         </div>
       </section>
@@ -154,7 +154,7 @@ export default function Skills() {
 
       <section className="section next-cta-section">
         <div className="next-cta reveal">
-          <p>准备好把仓库变成知识图谱了吗？</p>
+          <p>准备好开始构建属于你自己的知识图谱了吗？</p>
           <Link className="button primary" to="/#top">
             下载客户端 / 一键安装
           </Link>

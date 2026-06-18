@@ -252,17 +252,17 @@ export default function Architecture() {
         <PageHeroBackdrop />
         <div className="page-hero-inner reveal">
           <span className="page-kicker">SYSTEM ARCHITECTURE · 系统架构</span>
-          <h1>把项目拆成节点，把节点连成图</h1>
+          <h1>把项目拆成节点，再把节点连成图</h1>
           <p>
             OpenRepo Copilot 用一条「确定性提取 + LLM
-            语义增强」的流水线引导 Agent 解析仓库：先把代码拆成结构化节点，再把它们连成边，最终聚合为可探索的知识图谱。
+            语义增强」的流水线引导 Agent 解析仓库：先把代码文件拆成结构化节点，再构建这些节点之间的边，最终聚合为可探索的知识图谱。
           </p>
         </div>
       </section>
 
       <section className="section kg-section">
         <div className="section-heading compact reveal">
-          <h2>A · 知识图谱是如何被构建的</h2>
+          <h2>从项目到知识图谱的构建全流程</h2>
         </div>
 
         <KGStepper />
@@ -321,12 +321,12 @@ export default function Architecture() {
 
       <section className="section agent-section">
         <div className="section-heading compact reveal">
-          <h2>B · 内置 Agent —— 类 Claude Code 核心循环</h2>
+          <h2>内置 Agent 架构 —— 类 Claude Code 核心循环</h2>
         </div>
         <div className="agent-note reveal">
           <span className="agent-note-dot"></span>
           <p>
-            当前 app 内嵌的是一套<strong>确定性多阶段流水线</strong>（<code>analysis-worker.ts</code>）。这里展示的是后续将直接嵌入 Workbench 版本的<strong>最终形态</strong>：一个完整的、类 Claude Code 的核心 Agent 循环。
+            后续将逐步引入更强大的 Agent 架构直至<strong>最终形态</strong>：一个完整的、类 Claude Code 的核心 Agent 循环。
           </p>
         </div>
 
